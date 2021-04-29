@@ -2,6 +2,9 @@
 #include <string>
 #include <glslang/Include/glslang_c_interface.h>
 #include <glslang/Include/resource_limits_c.h>
+#include <iostream>
+
+using namespace std;
 
 const glslang_resource_t _DefaultTBuiltInResource = {
     /* .MaxLights = */ 32,
@@ -129,16 +132,16 @@ glslang_stage_t GetGLSLANG_STAGE(ShaderStagesBits stage) {
     return GLSLANG_STAGE_VERTEX;
 }
 
-bool CompileFromGLSL(const char* shader_data, ShaderStagesBits stage, byte** out, uint32& spv_size) {
+bool CompileFromGLSL(const char* shader_data, ShaderStagesBits stage, unsigned char** out, unsigned int& spv_size) {
     glslang_input_t input = {};
     input.language = GLSLANG_SOURCE_GLSL;
     input.stage = GetGLSLANG_STAGE(stage);
     input.client = GLSLANG_CLIENT_VULKAN;
-    input.client_version = GLSLANG_TARGET_VULKAN_1_2;
+    input.client_version = GLSLANG_TARGET_VULKAN_1_1;
     input.target_language = GLSLANG_TARGET_SPV;
     input.target_language_version = GLSLANG_TARGET_SPV_1_3;
     input.code = (const char*)shader_data;
-    input.default_version = 100;
+    input.default_version = 450;
     input.default_profile = GLSLANG_NO_PROFILE;
     input.force_default_version_and_profile = false;
     input.forward_compatible = false;
@@ -151,13 +154,13 @@ bool CompileFromGLSL(const char* shader_data, ShaderStagesBits stage, byte** out
 
     if (!glslang_shader_preprocess(shader, &input))
     {
-        //Logger::Log(LogType::LOG_TYPE_ERROR) << glslang_shader_get_info_log(shader);
+        cout << glslang_shader_get_info_log(shader) << endl;
         return false;
     }
 
     if (!glslang_shader_parse(shader, &input))
     {
-       // Logger::Log(LogType::LOG_TYPE_ERROR) << glslang_shader_get_info_log(shader);
+        cout << glslang_shader_get_info_log(shader) << endl;
         return false;
     }
 
@@ -166,7 +169,7 @@ bool CompileFromGLSL(const char* shader_data, ShaderStagesBits stage, byte** out
 
     if (!glslang_program_link(program, GLSLANG_MSG_SPV_RULES_BIT | GLSLANG_MSG_VULKAN_RULES_BIT))
     {
-        //Logger::Log(LogType::LOG_TYPE_ERROR) << glslang_shader_get_info_log(shader);
+        cout << glslang_shader_get_info_log(shader) << endl;
         return false;
     }
 
@@ -174,11 +177,11 @@ bool CompileFromGLSL(const char* shader_data, ShaderStagesBits stage, byte** out
 
     if (glslang_program_SPIRV_get_messages(program))
     {
-        //Logger::Log(LogType::LOG_TYPE_ERROR) << glslang_program_SPIRV_get_messages(program);
+        cout << glslang_program_SPIRV_get_messages(program) << endl;
     }
 
-    spv_size = (uint32)glslang_program_SPIRV_get_size(program) * 4;
-    *out = new byte[spv_size];
+    spv_size = (unsigned int)glslang_program_SPIRV_get_size(program) * 4;
+    *out = new unsigned char[spv_size];
     memcpy((*out), glslang_program_SPIRV_get_ptr(program), spv_size);
 
     glslang_shader_delete(shader);

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 enum ShaderAPI {
 	API_VULKAN,
 	API_D3D12
@@ -14,3 +16,5 @@ enum ShaderStagesBits {
 	SHADER_STAGE_TESSELATION_CTRL = 0x10,
 	SHADER_STAGE_TESSELATION_EVAL = 0x20
 };
+
+ShaderStagesBits GetStageBit(std::string ext);

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../base.hpp"
-
+#include <glslang/Include/glslang_c_interface.h>
 #include "../ShaderStages.hpp"
 
-bool CompileFromGLSL(const char* shader_data, ShaderStagesBits stage, byte** out, uint32& spv_size);
+
+bool CompileFromGLSL(const char* shader_data, ShaderStagesBits stage, unsigned char** out, unsigned int& spv_size);

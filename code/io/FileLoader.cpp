@@ -19,6 +19,7 @@ bool LoadFile(const std::string& FilePath, char** out, uint32* Size, bool Termin
 	rewind(pFile);
 	//Allocate memory
 	*out = new char[FileSize];
+	memset(*out, 0, FileSize);
 	fread(*out, 1, FileSize, pFile);
 	//Close file stream
 	fclose(pFile);
