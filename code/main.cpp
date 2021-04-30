@@ -9,8 +9,17 @@ using namespace std;
 int main(int argc, char** argv) {
 	cout << "VSGE shader compiler v1.0" << endl;
 
+	std::string input_file_str = "input.txt";
+	if (argc == 2)
+		input_file_str = std::string(argv[1]);
+
 	InputFileContents ifc;
-	ParseInputFile("input.txt", ifc);
+	bool result = ParseInputFile(input_file_str.c_str(), ifc);
+
+	if (!result) {
+		std::cout << "Error loading file " << input_file_str << endl;
+		return 1;
+	}
 
 	ShaderBundleWriter writer;
 	writer.Create(ifc.outputFile, ifc.mapFile);
@@ -28,12 +37,16 @@ int main(int argc, char** argv) {
 			cout << "Error loading shader file " << shader.file_path << endl;
 			continue;
 		}
+
+		cout << "\t Shader type " << GetStageBit(shader.file_ext) << endl;
 		unsigned char* out = nullptr;
 		unsigned int out_size;
 		CompileFromGLSL(data, GetStageBit(shader.file_ext), &out, out_size);
+		cout << "\t Output size " << out_size << " bytes" << endl;
 
 		writer.WriteShader(out, out_size, shader.file_name);
 	}
+	writer.Close();
 	
 #ifdef _WIN32
 	system("pause");

@@ -137,7 +137,7 @@ bool CompileFromGLSL(const char* shader_data, ShaderStagesBits stage, unsigned c
     input.language = GLSLANG_SOURCE_GLSL;
     input.stage = GetGLSLANG_STAGE(stage);
     input.client = GLSLANG_CLIENT_VULKAN;
-    input.client_version = GLSLANG_TARGET_VULKAN_1_1;
+    input.client_version = GLSLANG_TARGET_VULKAN_1_2;
     input.target_language = GLSLANG_TARGET_SPV;
     input.target_language_version = GLSLANG_TARGET_SPV_1_3;
     input.code = (const char*)shader_data;

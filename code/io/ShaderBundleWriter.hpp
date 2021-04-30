@@ -18,10 +18,10 @@ public:
 	}
 
 	~ShaderBundleWriter() {
-		stream.close();
-		map_stream.close();
+
 	}
 
 	void Create(std::string file_path, std::string map_file_path);
 	void WriteShader(unsigned char* data, unsigned int size, std::string name);
+	void Close();
 };
