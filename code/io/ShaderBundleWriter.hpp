@@ -2,7 +2,6 @@
 
 #include <fstream>
 #include <string>
-#include "../input_parser/CompileRequest.hpp"
 
 class ShaderBundleWriter {
 private:

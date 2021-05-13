@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../base.hpp"
-#include "CompileRequest.hpp"
 #include <vector>
+#include <string>
 
 class RequestedShader {
 public:

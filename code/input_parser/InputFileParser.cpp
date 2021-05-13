@@ -68,5 +68,5 @@ bool ParseInputFile(const char* file_path, InputFileContents& contents) {
 			contents.shaders.push_back(shader);
 		}
 	}
-
+	return true;
 }

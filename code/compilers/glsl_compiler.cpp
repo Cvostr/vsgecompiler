@@ -178,6 +178,7 @@ bool CompileFromGLSL(const char* shader_data, ShaderStagesBits stage, unsigned c
     if (glslang_program_SPIRV_get_messages(program))
     {
         cout << glslang_program_SPIRV_get_messages(program) << endl;
+        return false;
     }
 
     spv_size = (unsigned int)glslang_program_SPIRV_get_size(program) * 4;
