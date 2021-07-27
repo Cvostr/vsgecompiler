@@ -1,5 +1,6 @@
 #include "glsl_compiler.hpp"
 #include <string>
+#include <cstring>
 #include <glslang/Include/glslang_c_interface.h>
 #include <glslang/Include/resource_limits_c.h>
 #include <iostream>

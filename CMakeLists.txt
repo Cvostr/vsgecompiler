@@ -43,5 +43,13 @@ target_link_libraries(compiler ${STATIC_LIBS_DIR}/vulkan/vulkan-1.lib)
 target_link_libraries(compiler ${CMAKE_DL_LIBS})
 target_link_libraries(compiler pthread)
 
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/libglslang.a)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/libSPIRV.a)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/libSPVRemapper.a)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/libMachineIndependent.a)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/libOGLCompiler.a)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/libOSDependent.a)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/libGenericCodeGen.a)
+
 
 ENDIF()

@@ -1,10 +1,10 @@
 #include "FileLoader.hpp"
 #include "stdio.h"
+#include <cstring>
 
 bool LoadFile(const std::string& FilePath, char** out, uint32* Size, bool Terminate) {
-	FILE* pFile = nullptr;
 	//Try to open file with read binary
-	fopen_s(&pFile, FilePath.c_str(), "rb");
+	FILE* pFile = fopen(FilePath.c_str(), "rb");
 
 	if (pFile == NULL) {
 		//Logger::Log("Error opening file " + FilePath, LogType::LOG_TYPE_ERROR);
@@ -34,10 +34,9 @@ bool LoadFile(const std::string& FilePath, char** out, uint32* Size, bool Termin
 }
 
 bool LoadFilePartially(const std::string& FilePath, char** out, uint32 Offset, uint32 Size) {
-	FILE* pFile = nullptr;
 	//Try to open file with read binary
-	fopen_s(&pFile, FilePath.c_str(), "rb");
-
+	FILE* pFile = fopen(FilePath.c_str(), "rb");
+	
 	if (pFile == NULL) {
 		//Logger::Log("Error opening file " + FilePath, LogType::LOG_TYPE_ERROR);
 		return false;
