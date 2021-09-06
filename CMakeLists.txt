@@ -16,7 +16,7 @@ set(STATIC_LIBS_DIR  ${CMAKE_SOURCE_DIR}/vendor/static-x64/win)
 
 target_link_libraries(compiler ${STATIC_LIBS_DIR}/vulkan/vulkan-1.lib)
 
-#if (CMAKE_BUILD_TYPE EQUAL "DEBUG")
+if (CMAKE_BUILD_TYPE MATCHES Debug)
 target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/dbg/glslangd.lib)
 target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/dbg/SPIRVd.lib)
 target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/dbg/SPVRemapperd.lib)
@@ -24,6 +24,16 @@ target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/dbg/MachineIndependent
 target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/dbg/OGLCompilerd.lib)
 target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/dbg/OSDependentd.lib)
 target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/dbg/GenericCodeGend.lib)
+ENDIF()
+if (CMAKE_BUILD_TYPE MATCHES Release)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/glslang.lib)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/SPIRV.lib)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/SPVRemapper.lib)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/MachineIndependent.lib)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/OGLCompiler.lib)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/OSDependent.lib)
+target_link_libraries(compiler ${STATIC_LIBS_DIR}/glslang/GenericCodeGen.lib)
+ENDIF()
 
 #Win32 libs
 target_link_libraries(compiler winmm.lib)

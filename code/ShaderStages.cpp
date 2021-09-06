@@ -12,3 +12,17 @@ ShaderStagesBits GetStageBit(std::string ext) {
 
 	return SHADER_STAGE_NULL;
 }
+
+const std::string GetShaderStageString(ShaderStagesBits stage_bits) {
+	switch (stage_bits) {
+	case SHADER_STAGE_VERTEX:
+		return "Vertex";
+	case SHADER_STAGE_FRAGMENT:
+		return "Fragment";
+	case SHADER_STAGE_GEOMETRY:
+		return "Geometry";
+	case SHADER_STAGE_COMPUTE:
+		return "Compute";
+	}
+	return "";
+}

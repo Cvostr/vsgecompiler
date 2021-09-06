@@ -17,6 +17,8 @@ void GetFileName(std::string& str) {
 }
 
 std::string GetFileExt(std::string str) {
+	if (str.size() == 0)
+		return "";
 	std::string old = str;
 	str.clear();
 	int last_slash = static_cast<int>(old.size()) - 1;
@@ -65,7 +67,8 @@ bool ParseInputFile(const char* file_path, InputFileContents& contents) {
 			GetFileName(shader.file_name);
 			shader.file_ext = GetFileExt(shader.file_name);
 
-			contents.shaders.push_back(shader);
+			if(!shader.file_name.empty() && !shader.file_ext.empty())
+				contents.shaders.push_back(shader);
 		}
 	}
 	return true;

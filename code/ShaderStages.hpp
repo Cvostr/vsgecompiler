@@ -18,3 +18,4 @@ enum ShaderStagesBits {
 };
 
 ShaderStagesBits GetStageBit(std::string ext);
+const std::string GetShaderStageString(ShaderStagesBits stage_bits);

@@ -43,10 +43,11 @@ int main(int argc, char** argv) {
 			continue;
 		}
 
-		cout << "\t Shader type " << GetStageBit(shader.file_ext) << endl;
+		ShaderStagesBits shader_type = GetStageBit(shader.file_ext);
+		cout << "\t Shader type : " << GetShaderStageString(shader_type) << endl;
 		unsigned char* out = nullptr;
 		unsigned int out_size;
-		result = CompileFromGLSL(data, GetStageBit(shader.file_ext), &out, out_size);
+		result = CompileFromGLSL(data, shader_type, &out, out_size);
 
 		if (!result) {
 			cout << "Error compiling shader, skipping" << endl;
